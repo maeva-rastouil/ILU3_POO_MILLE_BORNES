@@ -8,7 +8,7 @@ public class TestJeuDeCartes {
 
         JeuDeCartes jeu = new JeuDeCartes();
 
-        String affichage = jeu.affichageJeuDeCartes(); //on appelle la fonction qui retourne le tableau des cartes
+        StringBuilder affichage = jeu.affichageJeuDeCartes(); //on appelle la fonction qui retourne le tableau des cartes
 
         System.out.println(affichage);
     }

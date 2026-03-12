@@ -10,7 +10,7 @@ import jeu.Sabot;
 
 public class TestSabot {
 
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) {
         JeuDeCartes jeu = new JeuDeCartes();
         Carte[] toutesLesCartes = jeu.donnerCartes();
         Sabot sabot = new Sabot(toutesLesCartes);
@@ -30,7 +30,7 @@ public class TestSabot {
 
             // cas 2 : ajout d’une carte pendant l’itération
             sabot.ajouterCarte(new Botte(Type.ACCIDENT)); // As du volant
-        }
+        } 
     }
 
 }

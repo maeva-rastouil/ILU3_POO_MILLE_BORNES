@@ -7,15 +7,14 @@ import java.util.NoSuchElementException;
 import cartes.Carte;
 
 public class Sabot implements Iterable<Carte>{
-    private Carte[] tableau_sabot;
+    private Carte[] tableauSabot;
     private int nbCartes;
-    private int compteur;
+    private int compteur = 0;
 
     
-    public Sabot(Carte[] tableau_sabot) { //le constructeur nous fournit un tableau
-        this.tableau_sabot = tableau_sabot;
-        this.nbCartes = tableau_sabot.length; //initialement le nb de carte dans le tableau_sabot
-        this.compteur = 0;
+    public Sabot(Carte[] tableauSabot) { //le constructeur nous fournit un tableau
+        this.tableauSabot = tableauSabot;
+        this.nbCartes = tableauSabot.length; //initialement le nb de carte dans le tableau_sabot
     }
 
     public int getNbCartes() {
@@ -23,23 +22,19 @@ public class Sabot implements Iterable<Carte>{
     }
 
     public Carte[] getTableauSabot() {
-        return tableau_sabot;
+        return tableauSabot;
     }
     
     public boolean estVide() {
-        if(nbCartes == 0) {
-            return true;
-        } else{
-            return false;
-        }
+        return nbCartes == 0;
     }
     
-    public void ajouterCarte(Carte carte) throws Exception{
-    	if(nbCartes > tableau_sabot.length) {
-    		throw new Exception("Le sabot est plein");
+    public void ajouterCarte(Carte carte){
+    	if(nbCartes > tableauSabot.length) {
+    		throw new IllegalStateException("Le sabot est plein");
     	}
     	
-    	tableau_sabot[nbCartes] = carte;
+    	tableauSabot[nbCartes] = carte;
     	nbCartes++;
     }
     
@@ -92,7 +87,7 @@ public class Sabot implements Iterable<Carte>{
                 throw new NoSuchElementException();
             }
             canRemove = true;
-            return tableau_sabot[index++];
+            return tableauSabot[index++];
         }
 
         @Override
@@ -104,7 +99,7 @@ public class Sabot implements Iterable<Carte>{
                 throw new IllegalStateException();
             }
             for (int i = index - 1; i < nbCartes - 1; i++) {
-                tableau_sabot[i] = tableau_sabot[i + 1];
+                tableauSabot[i] = tableauSabot[i + 1];
             }
             nbCartes--;
             index--;

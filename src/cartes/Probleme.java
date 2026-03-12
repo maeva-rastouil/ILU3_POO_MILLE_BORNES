@@ -3,7 +3,7 @@ package cartes;
 public abstract class Probleme extends Carte {
 	private Type type;
 
-	public Probleme(Type type) {
+	protected Probleme(Type type) {
 		this.type = type;
 	}
 	
