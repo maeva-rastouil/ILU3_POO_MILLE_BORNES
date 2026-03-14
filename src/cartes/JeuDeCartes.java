@@ -3,7 +3,6 @@ package cartes;
 public class JeuDeCartes { 
 
     private Configuration[] typesDeCartes = new Configuration[] {
-
         new Configuration(new Borne(25), 10),
         new Configuration(new Borne(50), 10),
         new Configuration(new Borne(75), 10),
@@ -40,7 +39,6 @@ public class JeuDeCartes {
     }
 
     public Carte[] donnerCartes() {
-
         int total = 0;
         for (Configuration config : typesDeCartes) {
             total += config.getNbExemplaires();
@@ -60,7 +58,26 @@ public class JeuDeCartes {
         return tableauResultat;
     }
 
-    
+    public boolean checkCount() {
+        Carte[] cartes = donnerCartes();
+        
+        
+
+        for (Configuration config : typesDeCartes){
+            int compteur = 0;
+            
+            for (Carte c : cartes){
+                if (c.equals(config.getCarte())){
+                    compteur++;
+                }
+            }
+
+            if (compteur != config.getNbExemplaires()){
+                return false;
+            }
+        }
+        return true;
+    }
     
     
     

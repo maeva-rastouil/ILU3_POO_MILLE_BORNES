@@ -3,7 +3,7 @@ package cartes;
 public abstract class Bataille extends Probleme {
 
 	protected Bataille(Type type) {
-		super(type); //on appelle le constructeur de la classe parente
+		super(type); 
 	}
 	
 }

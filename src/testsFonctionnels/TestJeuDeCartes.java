@@ -1,16 +1,15 @@
 package testsFonctionnels;
 
-import cartes.JeuDeCartes;
+import cartes.*;
 
 public class TestJeuDeCartes {
 
-	public static void main(String[] args) {
+    public static void main(String[] args) {
 
         JeuDeCartes jeu = new JeuDeCartes();
 
-        StringBuilder affichage = jeu.affichageJeuDeCartes(); //on appelle la fonction qui retourne le tableau des cartes
+        System.out.println(jeu.affichageJeuDeCartes());
 
-        System.out.println(affichage);
+        System.out.println("Configuration correcte ? " + jeu.checkCount());
     }
-
 }

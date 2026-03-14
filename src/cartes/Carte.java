@@ -4,10 +4,17 @@ public abstract class Carte{
 	
 	@Override
 	public boolean equals(Object obj) {
-		if (obj instanceof Carte carte) {
-			return carte.equals(carte);
-		}
-		return false;
+
+	    if (this == obj) return true;
+
+	    if (obj == null) return false;
+
+	    return getClass() == obj.getClass();
+	}
+	
+	@Override
+	public int hashCode() {
+	    return getClass().hashCode();
 	}
 
 }
