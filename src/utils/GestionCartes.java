@@ -3,10 +3,9 @@ package utils;
 import java.util.*;
 
 public class GestionCartes {
+	
     private static final Random rand = new Random();
 
-    
-    
     //extraire version 1
     public static <T> T extraire(List<T> liste) {
         int indice = rand.nextInt(liste.size());
@@ -97,10 +96,10 @@ public class GestionCartes {
                 if (suivant.equals(courant)) {
                     return false;
                 }
-
-                if (!suivant.equals(courant)) {
-                    break;
+                else {
+                	break;
                 }
+
             }
         }
         return true;

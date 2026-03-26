@@ -7,6 +7,7 @@ import java.util.NoSuchElementException;
 import cartes.Carte;
 
 public class Sabot implements Iterable<Carte>{
+	
     private Carte[] tableauSabot;
     private int nbCartes;
     private int compteur = 0;
@@ -36,6 +37,7 @@ public class Sabot implements Iterable<Carte>{
     	
     	tableauSabot[nbCartes] = carte;
     	nbCartes++;
+    	compteur++;
     }
     
     public Carte piocher() {
@@ -50,18 +52,6 @@ public class Sabot implements Iterable<Carte>{
         return carte; //on retourne la carte piochée
     }
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     @Override
     public Iterator<Carte> iterator() {
@@ -80,9 +70,7 @@ public class Sabot implements Iterable<Carte>{
 
         @Override
         public Carte next() {
-            if (expectedModCount != compteur) {
-                throw new ConcurrentModificationException();
-            }
+            verifierConcurrence();
             if (!hasNext()) {
                 throw new NoSuchElementException();
             }
@@ -90,11 +78,15 @@ public class Sabot implements Iterable<Carte>{
             return tableauSabot[index++];
         }
 
-        @Override
-        public void remove() {
-            if (expectedModCount != compteur) {
+		private void verifierConcurrence() {
+			if (expectedModCount != compteur) {
                 throw new ConcurrentModificationException();
             }
+		}
+
+        @Override
+        public void remove() {
+            verifierConcurrence();
             if (!canRemove) {
                 throw new IllegalStateException();
             }

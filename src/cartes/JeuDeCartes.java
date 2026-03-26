@@ -32,7 +32,10 @@ public class JeuDeCartes {
         StringBuilder resultat = new StringBuilder("JEU :\n");
 
         for (Configuration config : typesDeCartes) {
-            resultat.append(config.getNbExemplaires() + " " + config.getCarte() + "\n");
+            resultat.append(config.getNbExemplaires() );
+            resultat.append(" ");
+            resultat.append(config.getCarte());
+            resultat.append("\n");
         }
 
         return resultat;
