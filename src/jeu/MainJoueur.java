@@ -6,7 +6,7 @@ import java.util.Iterator;
 
 import cartes.Carte;
 
-public class MainJoueur {
+public class MainJoueur implements Iterable<Carte> {
 	private List <Carte> jeudanslamain;
 
 	public MainJoueur() {
@@ -15,9 +15,10 @@ public class MainJoueur {
 	
 	@Override
 	public String toString() {
-		return jeudanslamain;
+		return jeudanslamain.toString();
 	}
 	
+	@Override
 	public Iterator<Carte> iterator(){
 		return jeudanslamain.iterator();
 	}
@@ -31,3 +32,4 @@ public class MainJoueur {
 		jeudanslamain.remove(carte);
 	}
 }
+

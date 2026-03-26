@@ -1,12 +1,16 @@
 package jeu;
 
+import cartes.Carte;
+
 public class Joueur {
 	private String nom;
 	private ZoneDeJeu zonedejeu;
+	private MainJoueur main;
 
 	public Joueur(String nom, ZoneDeJeu zonedejeu) {
 		this.nom = nom;
-		this.zonedejeu = new ZoneDeJeu();
+		this.zonedejeu = zonedejeu;
+		this.main = new MainJoueur();
 	}
 	
 	public String getNom() {
@@ -17,29 +21,44 @@ public class Joueur {
 		return zonedejeu;
 	}
 	
-	@Override
-	public boolean equals(Object obj) {
-	    if(obj instanceof Joueur joueur) {
-	        return nom.equals(joueur.getNom());
-	    }
-	    return false;
+	public MainJoueur getMain() {
+		return main;
 	}
 	
-	@Override
-	public String toString() {
-		return nom;
-	}
+	public void donner(Carte carte) {
+        main.prendre(carte);
+    }
 
-	public void estIdentique(Joueur joueur1, Joueur joueur2) {
-		if(joueur1.equals(joueur2)) {
-			System.out.println("Les deux joueurs sont identiques \n");
-		}
-	}
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Joueur joueur) {
+            return nom.equals(joueur.getNom());
+        }
+        return false;
+    }
+
+    @Override
+    public String toString() {
+        return "Joueur : " + nom + ", Main : " + main;
+    }
 
 
-	
+    public Carte prendreCarte(Sabot sabot) {
+    	if (sabot.estVide()) {
+            return null;                
+        }
+    	
+    	Carte carte = sabot.piocher();
+        main.prendre(carte); //on ajoute la carte qu'on a piocher dans la main du joueur
+        return carte;  
+    }
+    
+    public int donnerKmParcourus() {
+        return zonedejeu.donnerKmParcourus();
+    }
 
-
-
+    public boolean estDepotAutorise(Carte carte) {
+        return zonedejeu.estDepotAutorise(carte);
+    }
 
 }

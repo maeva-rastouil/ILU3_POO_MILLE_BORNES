@@ -26,4 +26,8 @@ public class Borne extends Carte {
 	    return 31 * super.hashCode() + km;
 	}
 
+	public int getKm() {
+		return km;
+	}
+
 }
