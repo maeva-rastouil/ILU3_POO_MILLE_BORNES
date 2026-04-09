@@ -5,6 +5,10 @@ import java.util.*;
 public class GestionCartes {
 	
     private static final Random rand = new Random();
+    
+    private GestionCartes() {
+    	throw new IllegalStateException("Utility class");
+    }
 
     //extraire version 1
     public static <T> T extraire(List<T> liste) {
@@ -12,21 +16,17 @@ public class GestionCartes {
         return liste.remove(indice);
     }
 
-    
-    
     //extraire version 2
     public static <T> T extraireIterateur(List<T> liste) {
         int indice = rand.nextInt(liste.size());
 
-        ListIterator<T> it = liste.listIterator();
-        T element = null;
-
-        for (int i = 0; i <= indice; i++) {
-            element = it.next();
-        }
+        ListIterator<T> it = liste.listIterator(indice);
+        T element = it.next();
         it.remove();
+
         return element;
     }
+
 
     
     
@@ -83,25 +83,20 @@ public class GestionCartes {
     
     //verifierRassemblement
     public static <T> boolean verifierRassemblement(List<T> liste) {
-        ListIterator<T> it1 = liste.listIterator();
+        ListIterator<T> it = liste.listIterator();
 
-        while (it1.hasNext()){
-            T courant = it1.next();
+        T precedent = it.next();
 
-            ListIterator<T> it2 = liste.listIterator(it1.nextIndex());
+        while (it.hasNext()){
+            T courant = it.next();
 
-            while (it2.hasNext()) {
-                T suivant = it2.next();
-
-                if (suivant.equals(courant)) {
-                    return false;
-                }
-                else {
-                	break;
-                }
-
+            if (courant.equals(precedent)){
+                return false;
             }
+
+            precedent = courant;
         }
         return true;
     }
+
 }
