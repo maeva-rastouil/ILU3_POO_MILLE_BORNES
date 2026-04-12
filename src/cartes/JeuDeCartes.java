@@ -1,41 +1,47 @@
 package cartes;
 
-public class JeuDeCartes { 
+import java.util.*;
 
-    private Configuration[] typesDeCartes = new Configuration[] {
-        new Configuration(new Borne(25), 10),
-        new Configuration(new Borne(50), 10),
-        new Configuration(new Borne(75), 10),
-        new Configuration(new Borne(100), 12),
-        new Configuration(new Borne(200), 4),
+public class JeuDeCartes {
 
-        new Configuration(new FinLimite(), 6),
-        new Configuration(new DebutLimite(), 4),
+    private Map<Carte, Integer> configuration;
 
-        new Configuration(new Attaque(Type.FEU), 5),
-        new Configuration(new Attaque(Type.ESSENCE), 3),
-        new Configuration(new Attaque(Type.CREVAISON), 3),
-        new Configuration(new Attaque(Type.ACCIDENT), 3),
+    public JeuDeCartes() {
+        configuration = new HashMap<>();
 
-        new Configuration(new Parade(Type.FEU), 14),
-        new Configuration(new Parade(Type.ESSENCE), 6),
-        new Configuration(new Parade(Type.CREVAISON), 6),
-        new Configuration(new Parade(Type.ACCIDENT), 6),
+        configuration.put(new Borne(25), 10);
+        configuration.put(new Borne(50), 10);
+        configuration.put(new Borne(75), 10);
+        configuration.put(new Borne(100), 12);
+        configuration.put(new Borne(200), 4);
 
-        new Configuration(new Botte(Type.FEU), 1),
-        new Configuration(new Botte(Type.ESSENCE), 1),
-        new Configuration(new Botte(Type.CREVAISON), 1),
-        new Configuration(new Botte(Type.ACCIDENT), 1)
-    };
+        configuration.put(new FinLimite(), 6);
+        configuration.put(new DebutLimite(), 4);
+
+        configuration.put(new Attaque(Type.FEU), 5);
+        configuration.put(new Attaque(Type.ESSENCE), 3);
+        configuration.put(new Attaque(Type.CREVAISON), 3);
+        configuration.put(new Attaque(Type.ACCIDENT), 3);
+
+        configuration.put(new Parade(Type.FEU), 14);
+        configuration.put(new Parade(Type.ESSENCE), 6);
+        configuration.put(new Parade(Type.CREVAISON), 6);
+        configuration.put(new Parade(Type.ACCIDENT), 6);
+
+        configuration.put(new Botte(Type.FEU), 1);
+        configuration.put(new Botte(Type.ESSENCE), 1);
+        configuration.put(new Botte(Type.CREVAISON), 1);
+        configuration.put(new Botte(Type.ACCIDENT), 1);
+    }
 
     public StringBuilder affichageJeuDeCartes() {
         StringBuilder resultat = new StringBuilder("JEU :\n");
 
-        for (Configuration config : typesDeCartes) {
-            resultat.append(config.getNbExemplaires() );
-            resultat.append(" ");
-            resultat.append(config.getCarte());
-            resultat.append("\n");
+        for (Map.Entry<Carte, Integer> entry : configuration.entrySet()) {
+            resultat.append(entry.getValue())
+                    .append(" ")
+                    .append(entry.getKey())
+                    .append("\n");
         }
 
         return resultat;
@@ -43,70 +49,45 @@ public class JeuDeCartes {
 
     public Carte[] donnerCartes() {
         int total = 0;
-        for (Configuration config : typesDeCartes) {
-            total += config.getNbExemplaires();
+
+        for (Map.Entry<Carte, Integer> entry : configuration.entrySet()) {
+            total += entry.getValue();
         }
 
-        Carte[] tableauResultat = new Carte[total];
+        Carte[] tableau = new Carte[total];
+        int index = 0;
 
-        int indiceTableau = 0;
-        for (Configuration config : typesDeCartes) {
+        for (Map.Entry<Carte, Integer> entry : configuration.entrySet()) {
+            Carte carte = entry.getKey();
+            int nb = entry.getValue();
 
-            for (int i = 0; i < config.getNbExemplaires(); i++) {
-                tableauResultat[indiceTableau] = config.getCarte();
-                indiceTableau++;
+            for (int i = 0; i < nb; i++) {
+                tableau[index++] = carte;
             }
         }
 
-        return tableauResultat;
+        return tableau;
     }
 
     public boolean checkCount() {
         Carte[] cartes = donnerCartes();
-        
-        
 
-        for (Configuration config : typesDeCartes){
+        for (Map.Entry<Carte, Integer> entry : configuration.entrySet()) {
+            Carte carte = entry.getKey();
+            int attendu = entry.getValue();
             int compteur = 0;
-            
-            for (Carte c : cartes){
-                if (c.equals(config.getCarte())){
+
+            for (Carte c : cartes) {
+                if (c.equals(carte)) {
                     compteur++;
                 }
             }
 
-            if (compteur != config.getNbExemplaires()){
+            if (compteur != attendu) {
                 return false;
             }
         }
+
         return true;
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    //classe interne 
-    private static class Configuration {
-
-        private Carte carte;
-        private int nbExemplaires;
-
-        public Configuration(Carte carte, int nbExemplaires) {
-            this.carte = carte;
-            this.nbExemplaires = nbExemplaires;
-        }
-
-        public Carte getCarte() {
-            return carte;
-        }
-
-        public int getNbExemplaires() {
-            return nbExemplaires;
-        }
     }
 }

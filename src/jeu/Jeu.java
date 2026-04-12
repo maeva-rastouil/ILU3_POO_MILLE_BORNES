@@ -104,15 +104,11 @@ public class Jeu {
         boolean partieTerminee = false;
 
         while (!partieTerminee) {
-
-            //on récupère le joueur suivant
             Joueur joueur = donnerJoueurSuivant();
             sb.append("---- Tour de ").append(joueur.getNom()).append(" ----\n");
 
-            //on joue un tour
             sb.append(jouerTour(joueur)).append("\n");
 
-            //on vérifie si le joueur a gagné
             if (joueur.donnerKmParcourus() >= 1000) {
                 sb.append(joueur.getNom()).append(" a atteint 1000 km !\n");
                 sb.append("La partie est terminée.\n");
@@ -126,8 +122,52 @@ public class Jeu {
             }
         }
 
+        //classement final
+        sb.append("\n=== Classement final ===\n");
+        List<Joueur> classement = classement();
+
+        for (int i = 0; i < classement.size(); i++) {
+            Joueur j = classement.get(i);
+            sb.append((i + 1)).append(". ")
+              .append(j.getNom())
+              .append(" - ")
+              .append(j.donnerKmParcourus())
+              .append(" km\n");
+        }
+
+        //si le sabot est vide alors on détermine rle vainqueue
+        Joueur vainqueur = classement.get(0);
+        sb.append("\nVainqueur : ").append(vainqueur.getNom()).append("\n");
+
         return sb.toString();
     }
+
+    
+    public List<Joueur> classement() {
+        //on utilise un comparator pour trier les km en ordre croissant
+        Comparator<Joueur> comp = new Comparator<Joueur>() {
+        	
+            @Override
+            public int compare(Joueur j1, Joueur j2) {
+                int diff = j2.donnerKmParcourus() - j1.donnerKmParcourus();
+                
+                // Si égalité de km, on compare les noms pour éviter les doublons dans le TreeSet
+                if (diff == 0) {
+                    return j1.getNom().compareTo(j2.getNom());
+                }
+                return diff;
+            }
+        };
+
+        //Treeset
+        Set<Joueur> classement = new TreeSet<>(comp);
+
+        //on ajoute tout les joueurs
+        classement.addAll(joueurs);
+
+        return new ArrayList<>(classement);
+    }
+
 
 
 
