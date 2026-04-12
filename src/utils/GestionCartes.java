@@ -80,23 +80,38 @@ public class GestionCartes {
     }
 
     
-    
-    //verifierRassemblement
-    public static <T> boolean verifierRassemblement(List<T> liste) {
-        ListIterator<T> it = liste.listIterator();
-
-        T precedent = it.next();
+    public static <T> boolean trouverElementPlusLoin(List<T> liste, int indice , T valeur) {
+    	ListIterator<T> it = liste.listIterator(indice);
 
         while (it.hasNext()){
-            T courant = it.next();
-
-            if (courant.equals(precedent)){
+            if (it.next().equals(valeur)){
                 return false;
             }
-
-            precedent = courant;
         }
         return true;
     }
+    
+    
+    
+    
+    //verifierRassemblement
+    public static <T> boolean verifierRassemblement(List<T> liste) {
+        ListIterator<T> it1 = liste.listIterator();
+
+        T precedent = it1.next();
+
+        while (it1.hasNext()) {
+            T courant = it1.next();
+
+            if (!courant.equals(precedent)) {
+                if (trouverElementPlusLoin(liste, it1.nextIndex(), precedent)) {
+                    return false;
+                }
+                precedent = courant;
+            }
+        }
+        return true;
+    }
+
 
 }

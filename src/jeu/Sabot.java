@@ -100,5 +100,15 @@ public class Sabot implements Iterable<Carte>{
             canRemove = false;
         }
     }
+    
+    public void deposer(Carte carte) {
+        if (nbCartes >= tableauSabot.length) {
+            throw new IllegalStateException("Le sabot est plein");
+        }
+
+        tableauSabot[nbCartes] = carte;
+        nbCartes++;
+        compteur++; // pour signaler une modification structurelle
+    }
 
 }
