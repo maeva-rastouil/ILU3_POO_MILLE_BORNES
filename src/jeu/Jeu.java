@@ -8,12 +8,11 @@ import java.util.*;
 public class Jeu {
 
     private Sabot sabot;
-    private Set<Joueur> joueurs;
+    private Set<Joueur> joueurs= new LinkedHashSet<>();
     private Iterator<Joueur> iterateurJoueurs;
 
 
     public Jeu() {
-        this.joueurs = new LinkedHashSet<>();
 
         // récupérer le tableau du jeu de cartes
         JeuDeCartes jeuDeCartes = new JeuDeCartes();
@@ -65,11 +64,16 @@ public class Jeu {
         // 1. Le joueur pioche une carte
         Carte piochee = sabot.piocher();
         joueur.donner(piochee);
-        sb.append(joueur.getNom()).append(" pioche ").append(piochee).append("\n");
+        sb.append(joueur.getNom());
+        sb.append(" pioche ");
+        sb.append(piochee);
+        sb.append("\n");
 
         // 2. Le joueur choisit un coup
         Coup coup = joueur.choisirCoup(joueurs);
-        sb.append(joueur.getNom()).append(" ").append(coup).append("\n");
+        sb.append(joueur.getNom());
+        sb.append(" ");
+        sb.append(coup).append("\n");
 
         // 3. On retire la carte de la main
         joueur.retirerDeLaMain(coup.getCarteJouee());
@@ -82,8 +86,8 @@ public class Jeu {
         // 5. Sinon → dépôt dans la zone du joueur cible
         else {
             coup.getJoueurCible().getZonedejeu().deposer(coup.getCarteJouee());
-            sb.append("La carte est déposée dans la zone de ")
-              .append(coup.getJoueurCible().getNom()).append(".\n");
+            sb.append("La carte est déposée dans la zone de ");
+            sb.append(coup.getJoueurCible().getNom()).append(".\n");
         }
 
         return sb.toString();
@@ -128,11 +132,11 @@ public class Jeu {
 
         for (int i = 0; i < classement.size(); i++) {
             Joueur j = classement.get(i);
-            sb.append((i + 1)).append(". ")
-              .append(j.getNom())
-              .append(" - ")
-              .append(j.donnerKmParcourus())
-              .append(" km\n");
+            sb.append((i + 1)).append(". ");
+            sb.append(j.getNom());
+            sb.append(" - ");
+            sb.append(j.donnerKmParcourus());
+            sb.append(" km\n");
         }
 
         //si le sabot est vide alors on détermine rle vainqueue

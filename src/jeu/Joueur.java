@@ -9,18 +9,18 @@ import cartes.Carte;
 public class Joueur {
 	private String nom;
 	private ZoneDeJeu zonedejeu;
-	private MainJoueur main;
+	private MainJoueur main = new MainJoueur();
+	
+	private Random random = new Random();
 
 	public Joueur(String nom, ZoneDeJeu zonedejeu) {
 		this.nom = nom;
 		this.zonedejeu = zonedejeu;
-		this.main = new MainJoueur();
 	}
 	
 	public Joueur(String nom) {
 	    this.nom = nom;
 	    this.zonedejeu = new ZoneDeJeu();
-	    this.main = new MainJoueur();
 	}
 
 	
@@ -65,7 +65,7 @@ public class Joueur {
     }
     
     public int donnerKmParcourus() {
-        return zonedejeu.donnerKmParcourus();
+        return zonedejeu.donnerKmParcours();
     }
 
     public boolean estDepotAutorise(Carte carte) {
@@ -108,7 +108,7 @@ public class Joueur {
     }
     
     private Coup choisirAleatoire(Set<Coup> coups) {
-        int index = new Random().nextInt(coups.size());
+        int index = random.nextInt(coups.size());
         int i = 0;
 
         for (Coup coup : coups) {

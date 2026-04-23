@@ -1,17 +1,13 @@
 package jeu;
 
 import java.util.List;
-import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
 
 import cartes.Carte;
 
 public class MainJoueur implements Iterable<Carte> {
-	private List <Carte> jeudanslamain;
-
-	public MainJoueur() {
-		this.jeudanslamain = new ArrayList<>(); 
-	}
+	private List <Carte> jeudanslamain = new LinkedList<>();
 	
 	@Override
 	public String toString() {
